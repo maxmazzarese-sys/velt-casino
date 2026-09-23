@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VELT — Crypto Casino Demo</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="#" data-go="lobby">
+        <span class="brand-mark">V</span>
+        VELT
+      </a>
+      <div class="search">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+        <input id="search" placeholder="Search games" />
+      </div>
+      <div class="top-actions">
+        <div class="wallet-chip">
+          <div class="bal"><span class="dot-usd">$</span> <span id="balance">10,000.00</span></div>
+          <button class="btn btn-blue" id="walletBtn">Wallet</button>
+        </div>
+        <button class="btn btn-ghost" id="loginBtn">Sign in</button>
+        <button class="icon-btn" id="chatToggle" title="Chat">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+        </button>
+        <div class="avatar" id="avatar">G</div>
+      </div>
+    </header>
+    <nav class="sidebar">
+      <button class="nav-item active" data-go="lobby" title="Lobby"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/></svg></button>
+      <button class="nav-item" data-go="originals" title="Originals"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 3l2.2 6.6H21l-5.4 4 2.1 6.4L12 16.8 6.3 20l2.1-6.4L3 9.6h6.8z"/></svg></button>
+      <button class="nav-item" data-go="slots" title="Slots"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 8v8M12 8v8M16 8v8"/></svg></button>
+      <button class="nav-item" data-go="live" title="Live Casino"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></button>
+      <button class="nav-item" data-go="sports" title="Sports"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg></button>
+      <div class="nav-gap"></div>
+      <button class="nav-item" data-go="promos" title="Promotions"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 9h16v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M8 9V5a4 4 0 0 1 8 0v4"/></svg></button>
+      <button class="nav-item" data-go="vip" title="VIP"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 8l4 3 4-6 4 6 4-3v11H4z"/></svg></button>
+    </nav>
+    <div class="shell" id="shell">
+      <main class="main">
+        <div class="demo-banner">DEMO CASINO — play-money only. Not a real gambling site. 18+ entertainment prototype inspired by Stake / Roobet / Shuffle layout.</div>
+        <div id="lobby" class="lobby"></div>
+        <div id="gameView" class="game-view">
+          <div class="game-layout">
+            <aside class="controls" id="controls"></aside>
+            <section class="stage">
+              <div class="stage-bar">
+                <button class="back" data-go="lobby">← Lobby</button>
+                <strong id="gameTitle">Dice</strong>
+                <span class="fair">Provably fair · demo seed</span>
+              </div>
+              <div class="stage-body" id="stageBody"></div>
+            </section>
+          </div>
+        </div>
+        <div id="pageView" class="hidden"></div>
+      </main>
+      <aside class="chat" id="chat">
+        <div class="chat-head"><span>English</span><span class="online">● 2,481 online</span></div>
+        <div class="chat-msgs" id="chatMsgs"></div>
+        <form class="chat-input" id="chatForm">
+          <input id="chatBox" maxlength="140" placeholder="Say something…" />
+          <button class="btn btn-blue" type="submit">Send</button>
+        </form>
+      </aside>
+    </div>
+  </div>
+  <div class="overlay" id="authOverlay"><div class="modal"><div class="modal-h">Welcome to VELT <button id="closeAuth">✕</button></div><div class="tabs"><button class="on" data-tab="login">Sign in</button><button data-tab="reg">Register</button></div><div class="modal-b"><div class="notice">Demo accounts stay in this browser. No email is sent. No identity check.</div><div class="field"><label>Username</label><input id="authUser" value="guest" /></div><div class="field"><label>Password</label><input id="authPass" type="password" value="demo" /></div><button class="btn btn-blue" style="width:100%;height:44px;margin-top:4px" id="authGo">Continue</button><div class="socials"><button>Google</button><button>Twitch</button><button>Wallet</button></div></div></div></div>
+  <div class="overlay" id="walletOverlay"><div class="modal wide"><div class="modal-h">Wallet <button id="closeWallet">✕</button></div><div class="tabs"><button class="on">Deposit</button><button>Withdraw</button><button>Buy</button><button>Tip</button></div><div class="modal-b"><div class="notice">Play chips only. These coins do not leave your device and cannot be cashed out.</div><div class="coins" id="coins"></div><div class="field" style="margin-top:14px"><label>Amount (USD demo)</label><input id="depAmt" value="500" /></div><button class="btn btn-green" style="width:100%;height:44px" id="doDeposit">Add play chips</button></div></div></div>
+  <div class="toast" id="toast"></div>
+  <script src="js/app.js"></script>
+</body>
+</html>
